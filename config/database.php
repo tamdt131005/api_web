@@ -7,14 +7,24 @@
 class Database
 {
     // Cấu hình kết nối
-    private $host = "localhost";
-    private $port = "3310";
-    private $dbname = "btapweb";
-    private $username = "root";
-    private $password = "";
+    // Cấu hình kết nối
+    private $host;
+    private $port;
+    private $dbname;
+    private $username;
+    private $password;
     private $charset = "utf8mb4";
 
     private $conn = null;
+
+    public function __construct()
+    {
+        $this->host = getenv('DB_HOST') ?: "localhost";
+        $this->port = getenv('DB_PORT') ?: "3310"; // Local Laragon default
+        $this->dbname = getenv('DB_NAME') ?: "btapweb";
+        $this->username = getenv('DB_USER') ?: "root";
+        $this->password = getenv('DB_PASSWORD') ?: "";
+    }
 
     /**
      * Lấy kết nối PDO
